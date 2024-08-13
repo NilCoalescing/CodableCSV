@@ -28,7 +28,7 @@ extension WriterTests {
     }
     /// Generates a URL pointing to a temporary file on the system temporary folder.
     static func generateTemporaryFileURL() -> URL {
-      let directoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+      let directoryURL = URL.temporaryDirectory
       return directoryURL.appendingPathComponent(UUID().uuidString)
     }
   }
@@ -160,7 +160,7 @@ extension WriterTests {
 
   /// Tests the file creation capabilities of `CSVWriter`.
   func testFileCreation() throws {
-    let directoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+    let directoryURL = URL.temporaryDirectory
     let fileURL = directoryURL.appendingPathComponent(UUID().uuidString)
     let writer = try CSVWriter(fileURL: fileURL, append: false)
     try writer.write(row: ["one", "two", "three"])

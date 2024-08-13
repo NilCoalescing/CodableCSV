@@ -1,7 +1,7 @@
 import Foundation
 
 /// Errors that can be thrown from a CSV reader instance.
-public final class CSVError<F>: LocalizedError, CustomNSError, CustomDebugStringConvertible where F:Failable {
+public final class CSVError<F>: LocalizedError, CustomNSError, CustomDebugStringConvertible where F:Failable, F.Failure: Sendable {
   /// The type of error being raised.
   public let type: F.Failure
   /// A localized message describing the reason for the failure.
@@ -11,12 +11,12 @@ public final class CSVError<F>: LocalizedError, CustomNSError, CustomDebugString
   /// A localized message providing "help" text if the user requests help.
   public let helpAnchor: String?
   /// Any further context given needed information to debug the error.
-  public let errorUserInfo: [String:Any]
+  public let errorUserInfo: [String: any Sendable]
   /// Any underlying error that cascade into this error.
   public let underlyingError: Swift.Error?
 
   /// Designated initializer.
-  init(_ type: F.Failure, underlying: Swift.Error? = nil, reason: String, recovery: String? = nil, help: String? = nil, userInfo: [String:Any] = [:]) {
+    init(_ type: F.Failure, underlying: Swift.Error? = nil, reason: String, recovery: String? = nil, help: String? = nil, userInfo: [String: any Sendable] = [:]) {
     self.type = type
     self.failureReason = reason
     self.recoverySuggestion = recovery

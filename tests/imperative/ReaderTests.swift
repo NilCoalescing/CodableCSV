@@ -47,7 +47,7 @@ extension ReaderTests {
     }
     /// Generates a URL pointing to a temporary file on the system temporary folder.
     static func generateTemporaryFileURL() -> URL {
-      let directoryURL = URL(fileURLWithPath: NSTemporaryDirectory(), isDirectory: true)
+      let directoryURL = URL.temporaryDirectory
       return directoryURL.appendingPathComponent(UUID().uuidString)
     }
   }
